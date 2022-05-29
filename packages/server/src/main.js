@@ -2,11 +2,13 @@ import express from "express";
 import { ApolloServer, gql } from "apollo-server-express";
 import typeDefs from "./graphql/typeDefs";
 import resolvers from "./graphql/resolvers";
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 
 const app = express();
 
 async function startServer() {
   const server = new ApolloServer({
+    plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
     typeDefs,
     resolvers,
   });
@@ -16,7 +18,7 @@ async function startServer() {
   server.applyMiddleware({
     app,
     cors: {
-      origin: "http://127.0.0.1:3000",
+      origin: "http://127.0.0.1:8000",
     },
     bodyParserConfig: true,
   });
